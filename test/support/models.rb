@@ -33,6 +33,10 @@ class User < OpenStruct
   def company
     Company.new(1, "PlataformaTec")
   end
+  
+  def email
+    "user@example.com"
+  end
 
   def self.human_attribute_name(attribute)
     case attribute

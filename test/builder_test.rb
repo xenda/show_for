@@ -7,6 +7,12 @@ class BuilderTest < ActionView::TestCase
       o.attribute(attribute, options, &block)
     end
   end
+  
+  def with_attributes_for(object,*attributes)
+    show_for(object) do |o|
+      o.attributes(*attributes)
+    end
+  end
 
   def with_association_for(object, association, options={}, &block)
      show_for(object) do |o|
@@ -30,6 +36,16 @@ class BuilderTest < ActionView::TestCase
   test "show_for attribute wraps each attribute with a label and content" do
     with_attribute_for @user, :name
     assert_select "div.show_for p.user_name.wrapper"
+    assert_select "div.show_for p.wrapper strong.label"
+    assert_select "div.show_for p.wrapper"
+  end
+
+  # WRAPPER 
+  test "show_for attributes wraps each attribute with a label and content" do
+    with_attributes_for @user, :name, :email
+    assert_select "div.show_for p.user_name.wrapper"
+    assert_select "div.show_for p.wrapper strong.label"
+    assert_select "div.show_for p.user_email.wrapper"
     assert_select "div.show_for p.wrapper strong.label"
     assert_select "div.show_for p.wrapper"
   end

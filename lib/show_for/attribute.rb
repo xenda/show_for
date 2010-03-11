@@ -14,5 +14,14 @@ module ShowFor
 
       wrap_label_and_content(attribute_name, value, options, &collection_block)
     end 
+    
+    def attributes(*attribute_names)
+      attributes_collection = Array.new
+      attribute_names.each do |attribute_name|
+        attributes_collection << attribute(attribute_name)
+      end
+      attributes_collection
+    end
+
   end
 end
